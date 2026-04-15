@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="card">
+    <p class="eyebrow">Consent</p>
+    <h1>Informed consent for an online experiment</h1>
+    <p>
+      You are invited to take part in a short online psychology study. Before
+      you decide whether to participate, please read the following information.
+    </p>
+    <div class="consent-copy">
+      <p><strong>Purpose.</strong> The purpose of this study is to collect responses to a brief judgment task.</p>
+      <p><strong>Procedure.</strong> If you agree to participate, you will see two people, make one binary choice, and then answer one rating item.</p>
+      <p><strong>Duration.</strong> The study takes about one minute.</p>
+      <p><strong>Voluntary participation.</strong> Your participation is voluntary. You may stop at any time by closing the browser window.</p>
+      <p><strong>Risks and discomfort.</strong> No substantial risks are expected beyond those of everyday computer use.</p>
+      <p><strong>Data.</strong> Your responses, along with study session identifiers, may be stored for research and pilot-testing purposes.</p>
+      <p><strong>Contact.</strong> If you have questions about the study, please contact the research team running this pilot.</p>
+      <p><strong>Consent.</strong> By continuing, you confirm that you are at least 18 years old, have read this information, and agree to participate in this online study.</p>
+    </div>
+    <div class="meta">
+      <div><strong>PROLIFIC_PID</strong>: {{ participant.prolific_pid or "missing" }}</div>
+      <div><strong>Consent status</strong>: {{ "accepted" if session.get("consent_given") else "not yet recorded" }}</div>
+    </div>
+    <div class="actions">
+      <form method="post" class="stack">
+        <label class="checkbox">
+          <input type="checkbox" name="consent" value="yes" required>
+          I have read the information above and consent to participate in this study.
+        </label>
+        <button class="button" type="submit">Continue to study</button>
+      </form>
+    </div>
+  </section>
+{% endblock %}

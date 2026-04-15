@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="card">
+    <p class="eyebrow">Completion</p>
+    <h1>Thank you for taking part</h1>
+    <p>
+      Your responses have been recorded. You can now return to the study team or
+      close this browser tab.
+    </p>
+    <div class="meta">
+      <div><strong>PROLIFIC_PID</strong>: {{ participant.prolific_pid or "missing" }}</div>
+      <div><strong>Completion code</strong>: {{ completion_code }}</div>
+      <div><strong>Example return URL</strong>: {{ complete_url }}</div>
+      <div><strong>Redirect configured</strong>: {{ "yes" if prolific_return_url else "no" }}</div>
+    </div>
+    <div class="actions">
+      {% if prolific_return_url %}
+        <a class="button" href="{{ complete_url }}">Return to Prolific</a>
+      {% endif %}
+      <a class="button secondary" href="{{ url_for('main.index') }}">Restart study</a>
+    </div>
+  </section>
+{% endblock %}

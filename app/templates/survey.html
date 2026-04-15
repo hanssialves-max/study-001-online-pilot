@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="card">
+    <p class="eyebrow">Study task</p>
+    <h1>{{ study_title }}</h1>
+    <p>
+      Please answer both questions below. All items are required.
+    </p>
+    <div class="meta">
+      <div><strong>PROLIFIC_PID</strong>: {{ participant.prolific_pid or "missing" }}</div>
+      <div><strong>STUDY_ID</strong>: {{ participant.study_id or "missing" }}</div>
+      <div><strong>SESSION_ID</strong>: {{ participant.session_id or "missing" }}</div>
+      <div><strong>Consent</strong>: {{ "yes" if session.get("consent_given") else "no" }}</div>
+    </div>
+    <form method="post" class="survey-form">
+      <fieldset class="item">
+        <legend>1. {{ choice_item.prompt }}</legend>
+        <div class="profile-grid">
+          {% for profile in choice_item.profiles %}
+            <label class="profile-card">
+              <input type="radio" name="{{ choice_item.name }}" value="{{ profile.value }}" required>
+              <img
+                src="{{ profile.image_url }}"
+                alt="{{ profile.label }}"
+                class="profile-image"
+                style="object-position: {{ profile.position }};"
+              >
+              <span class="profile-name">{{ profile.label }}</span>
+              <span class="profile-credit">{{ profile.credit }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <fieldset class="item">
+        <legend>2. {{ rating_item.prompt }}</legend>
+        <div class="rating-hints">
+          <span>1 = great</span>
+          <span>7 = extremely great</span>
+        </div>
+        <div class="scale scale-inline">
+          {% for option in rating_item.scale %}
+            <label class="radio radio-inline">
+              <input type="radio" name="{{ rating_item.name }}" value="{{ option.value }}" required>
+              <span>{{ option.value }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <button class="button" type="submit">Submit responses</button>
+      </div>
+    </form>
+  </section>
+{% endblock %}

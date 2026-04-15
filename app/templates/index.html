@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="card">
+    <p class="eyebrow">Pilot study</p>
+    <h1>{{ study_title }}</h1>
+    <p>
+      This short online study asks participants to make one binary choice and
+      then rate the quality of the study.
+    </p>
+    <div class="meta">
+      <div><strong>Participant flow</strong>: landing -> consent -> choice task -> rating -> completion</div>
+      <div><strong>PROLIFIC_PID</strong>: {{ participant.prolific_pid or "missing" }}</div>
+      <div><strong>STUDY_ID</strong>: {{ participant.study_id or "missing" }}</div>
+      <div><strong>SESSION_ID</strong>: {{ participant.session_id or "missing" }}</div>
+    </div>
+    <div class="actions">
+      <a class="button" href="{{ url_for('main.consent') }}">Start study</a>
+    </div>
+  </section>
+{% endblock %}
